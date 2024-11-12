@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 //Paginas
 import 'package:flutter_test_aplication/app/home_page.dart';
 import 'package:flutter_test_aplication/app/login_or_register_page.dart';
-import 'package:flutter_test_aplication/app/login_page.dart';
 
 /***********************************************************************************************************************
 * 

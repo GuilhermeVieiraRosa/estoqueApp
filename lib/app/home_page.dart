@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Center(
           child: Text(
-            'Login bem sucedido!',
+            'Bem vindo ao aplicativo!',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20,
