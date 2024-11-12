@@ -45,26 +45,51 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout),
+        title: Text("Controle de Estoque"),
+        backgroundColor: Colors.deepPurple[300],
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.deepPurple[250],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 50,
           ),
-        ],
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(
+                  "${user!.email}",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Usuário'),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Configurações'),
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Sair'),
+                onTap: signUserOut,
+              ),
+            ],
+          ),
+        ),
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Center(
           child: Text(
-            'Bem vindo ao aplicativo!',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-        ),
-        Center(
-          child: Text(
-            "${user!.email}",
+            'Página Home!',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -72,8 +97,25 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ]),
+
       //floatingActionButton: Container(),
-      //bottomNavigationBar: Container(),
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Estoque',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.playlist_add_outlined),
+            label: 'Adicionar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.playlist_remove_outlined),
+            label: 'Remover',
+          ),
+        ],
+      ),
     );
   }
 }
