@@ -7,12 +7,10 @@
 // Pacotes
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+// Paginas
 // Componentes
 import 'package:flutter_test_aplication/ui/button_component.dart';
 import 'package:flutter_test_aplication/ui/textfield_component.dart';
-
-// Paginas
 
 /***********************************************************************************************************************
 * 
@@ -21,20 +19,12 @@ import 'package:flutter_test_aplication/ui/textfield_component.dart';
 ***********************************************************************************************************************/
 
 class LoginPage extends StatefulWidget {
-  /*********************************************************
-  *   Variables
-  *********************************************************/
-
-  void Function()? onTap;
+  void Function()? onRegisterButtomTap;
 
   LoginPage({
     super.key,
-    required this.onTap,
+    required this.onRegisterButtomTap,
   });
-
-  /*********************************************************
-  *   Create State
-  *********************************************************/
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -204,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 25,
                 ),
                 GestureDetector(
-                  onTap: widget.onTap,
+                  onTap: widget.onRegisterButtomTap,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -220,9 +210,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 100,
-                ),
                 // A implementar:
                 // Remain Connected
                 // Google + Apple sign

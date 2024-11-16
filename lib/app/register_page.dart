@@ -7,12 +7,10 @@
 // Pacotes
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+// Paginas
 // Componentes
 import 'package:flutter_test_aplication/ui/button_component.dart';
 import 'package:flutter_test_aplication/ui/textfield_component.dart';
-
-// Paginas
 
 /***********************************************************************************************************************
 * 
@@ -21,20 +19,12 @@ import 'package:flutter_test_aplication/ui/textfield_component.dart';
 ***********************************************************************************************************************/
 
 class RegisterPage extends StatefulWidget {
-  /*********************************************************
-  *   Variables
-  *********************************************************/
-
-  void Function()? onTap;
+  void Function()? onLoginButtomTap;
 
   RegisterPage({
     super.key,
-    required this.onTap,
+    required this.onLoginButtomTap,
   });
-
-  /*********************************************************
-  *   Create State
-  *********************************************************/
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -212,7 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 25,
                 ),
                 GestureDetector(
-                  onTap: widget.onTap,
+                  onTap: widget.onLoginButtomTap,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

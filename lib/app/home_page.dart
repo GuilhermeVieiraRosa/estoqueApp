@@ -7,9 +7,13 @@
 //Pacotes
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//Componentes
-
+import 'package:flutter_test_aplication/app/add_page.dart';
+import 'package:flutter_test_aplication/app/config_page.dart';
+import 'package:flutter_test_aplication/app/search_page.dart';
+import 'package:flutter_test_aplication/app/storage_page.dart';
+import 'package:flutter_test_aplication/app/user_page.dart';
 //Paginas
+//Componentes
 
 /***********************************************************************************************************************
 * 
@@ -17,14 +21,21 @@ import 'package:flutter/material.dart';
 * 
 ***********************************************************************************************************************/
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   /*********************************************************
   *   Variables
   *********************************************************/
 
   final user = FirebaseAuth.instance.currentUser;
 
-  HomePage({super.key});
+  int currentIndex = 0;
 
   /*********************************************************
   *   Methods
@@ -37,6 +48,31 @@ class HomePage extends StatelessWidget {
     FirebaseAuth.instance.signOut();
   }
 
+  /**
+  * goToPage Method
+  */
+  void goToPage(index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
+  /**
+  * goToPage Method
+  */
+  void setIndexToUserPage() {
+    goToPage(4);
+    Navigator.pop(context);
+  }
+
+  /**
+  * goToPage Method
+  */
+  void setIndexToConfigPage() {
+    goToPage(5);
+    Navigator.pop(context);
+  }
+
   /*********************************************************
   *   Build
   *********************************************************/
@@ -44,6 +80,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // App Bar
       appBar: AppBar(
         title: Text("Controle de Estoque"),
         backgroundColor: Colors.deepPurple[300],
@@ -52,6 +89,8 @@ class HomePage extends StatelessWidget {
           fontSize: 24,
         ),
       ),
+
+      // Drawer
       drawer: Drawer(
         backgroundColor: Colors.deepPurple[250],
         child: Padding(
@@ -72,10 +111,12 @@ class HomePage extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text('Usuário'),
+                onTap: () => setIndexToUserPage(),
               ),
               ListTile(
                 leading: Icon(Icons.settings),
                 title: Text('Configurações'),
+                onTap: () => setIndexToConfigPage(),
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app),
@@ -86,21 +127,29 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Center(
-          child: Text(
-            'Página Home!',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ]),
 
-      //floatingActionButton: Container(),
+      // Body
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          switch (currentIndex) {
+            case 1:
+              return AddPage();
+            case 2:
+              return SearchPage();
+            case 4:
+              return UserPage();
+            case 5:
+              return ConfigPage();
+            default:
+              return StoragePage();
+          }
+        },
+      ),
 
+      // BottomBar
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) => goToPage(index),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
@@ -111,8 +160,8 @@ class HomePage extends StatelessWidget {
             label: 'Adicionar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.playlist_remove_outlined),
-            label: 'Remover',
+            icon: Icon(Icons.search),
+            label: 'Buscar',
           ),
         ],
       ),

@@ -6,12 +6,10 @@
 
 // Pacotes
 import 'package:flutter/material.dart';
-
-// Componentes
-
 // Paginas
 import 'package:flutter_test_aplication/app/login_page.dart';
 import 'package:flutter_test_aplication/app/register_page.dart';
+// Componentes
 
 /***********************************************************************************************************************
 * 
@@ -20,15 +18,7 @@ import 'package:flutter_test_aplication/app/register_page.dart';
 ***********************************************************************************************************************/
 
 class LoginOrRegisterPage extends StatefulWidget {
-  /*********************************************************
-  *   Variables
-  *********************************************************/
-
   LoginOrRegisterPage({super.key});
-
-  /*********************************************************
-  *   Create State
-  *********************************************************/
 
   @override
   State<LoginOrRegisterPage> createState() => _LoginOrRegisterPageState();
@@ -60,9 +50,9 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return LoginPage(onTap: chooseBetweenLoginOrRegisterPage);
+      return LoginPage(onRegisterButtomTap: chooseBetweenLoginOrRegisterPage);
     } else {
-      return RegisterPage(onTap: chooseBetweenLoginOrRegisterPage);
+      return RegisterPage(onLoginButtomTap: chooseBetweenLoginOrRegisterPage);
     }
   }
 }

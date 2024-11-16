@@ -6,32 +6,8 @@
 
 //Pacotes
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 //Paginas
-import 'package:flutter_test_aplication/app/auth_page.dart';
 //Componentes
-
-/***********************************************************************************************************************
-* 
-*                                                  Main
-* 
-***********************************************************************************************************************/
-
-Future<void> main() async {
-  /**
-  * Firebase Configuration
-  */
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  /**
-  * RunApp
-  */
-  runApp(MyApp());
-}
 
 /***********************************************************************************************************************
 * 
@@ -39,12 +15,12 @@ Future<void> main() async {
 * 
 ***********************************************************************************************************************/
 
-class MyApp extends StatelessWidget {
+class StoragePage extends StatelessWidget {
   /*********************************************************
   *   Variables
   *********************************************************/
 
-  const MyApp({super.key});
+  const StoragePage({super.key});
 
   /*********************************************************
   *   Methods
@@ -56,13 +32,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Armazem App',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Center(
+        child: Text(
+          'Página Storage!',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
       ),
-      home: AuthPage(),
-    );
+    ]);
   }
 }
