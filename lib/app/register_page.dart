@@ -7,10 +7,12 @@
 // Pacotes
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_aplication/themes/theme_provider.dart';
 // Paginas
 // Componentes
 import 'package:flutter_test_aplication/ui/button_component.dart';
 import 'package:flutter_test_aplication/ui/textfield_component.dart';
+import 'package:provider/provider.dart';
 
 /***********************************************************************************************************************
 * 
@@ -115,43 +117,60 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo
-                SizedBox(
-                  height: 10,
-                ),
-                Icon(
-                  Icons.account_box,
-                  size: 150,
+                // Central Icon and Theme Icon
+                Stack(
+                  children: [
+                    // Central Icon
+                    Center(
+                      child: Icon(
+                        Icons.account_box,
+                        size: 180,
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ),
+                    // Theme Toggle Button
+                    Positioned(
+                      top: 15,
+                      right: 15,
+                      child: GestureDetector(
+                        onTap: () => Provider.of<ThemeProvider>(
+                          context,
+                          listen: false,
+                        ).toggleTheme(),
+                        child: Icon(
+                          Icons.sunny,
+                          size: 40,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 // Text
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 5),
                 Column(
                   children: [
                     Text(
-                      'App Armazem',
+                      'App GW',
                       style: TextStyle(
-                        color: Colors.grey[900],
-                        fontSize: 30,
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        fontSize: 40,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                    ),
+                    const SizedBox(height: 50),
                     Text(
                       'Registrar conta',
                       style: TextStyle(
-                        color: Colors.grey[900],
+                        color: Theme.of(context).colorScheme.inverseSurface,
                         fontSize: 20,
                       ),
                     ),
@@ -159,19 +178,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 // Username Text Field
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 10),
                 MyTextfieldComponent(
                   controller: emailController,
                   hintText: 'Usuário',
-                  obscureText: false,
+                  obscureText: true,
                 ),
 
                 // Password Text Field
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 MyTextfieldComponent(
                   controller: passwordController,
                   hintText: 'Senha',
@@ -179,34 +194,33 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 // Password Text Field
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 MyTextfieldComponent(
                   controller: confirmPasswordController,
                   hintText: 'Confirmar Senha',
                   obscureText: true,
                 ),
 
-                // Login Button
-                SizedBox(
-                  height: 25,
-                ),
+                // Register Button
+                const SizedBox(height: 25),
                 MyButtonComponent(
                   onTap: registerUserIn,
                   text: 'Registrar',
                 ),
 
-                // Register Button
-                SizedBox(
-                  height: 25,
-                ),
+                // Login Button
+                const SizedBox(height: 25),
                 GestureDetector(
                   onTap: widget.onLoginButtomTap,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Já tem uma conta? '),
+                      Text(
+                        'Já tem uma conta? ',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
+                      ),
                       Text(
                         'Entre aqui.',
                         style: TextStyle(
@@ -218,9 +232,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 100,
-                ),
                 // A implementar:
                 // Remain Connected
                 // Google + Apple sign

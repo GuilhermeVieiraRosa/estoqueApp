@@ -41,19 +41,24 @@ class MyTextfieldComponent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
+        style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
         keyboardType: TextInputType.text,
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.inversePrimary),
           ),
-          fillColor: Colors.white,
-          filled: true,
           hintText: hintText,
+          hintStyle:
+              TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+          fillColor: Theme.of(context).colorScheme.secondary,
+          filled: true,
         ),
       ),
     );

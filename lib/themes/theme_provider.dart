@@ -6,9 +6,11 @@
 
 //Pacotes
 import 'package:flutter/material.dart';
-import 'package:flutter_test_aplication/ui/boxlist_component.dart';
 //Paginas
 //Componentes
+//Tema
+import 'package:flutter_test_aplication/themes/light_theme.dart';
+import 'package:flutter_test_aplication/themes/dark_theme.dart';
 
 /***********************************************************************************************************************
 * 
@@ -16,41 +18,35 @@ import 'package:flutter_test_aplication/ui/boxlist_component.dart';
 * 
 ***********************************************************************************************************************/
 
-class StoragePage extends StatelessWidget {
+class ThemeProvider with ChangeNotifier {
   /*********************************************************
   *   Variables
   *********************************************************/
 
-  final List _posts = [
-    'post1',
-    'post2',
-    'post3',
-    'post4',
-    'post5',
-    'post6',
-    'post7',
-    'post8'
-  ];
+  ThemeData _themeData = lightMode;
 
-  StoragePage({super.key});
+  ThemeData get themeData => _themeData;
 
-  /*********************************************************
+  bool get isDarkMode => _themeData == darkMode;
+
+  /********************************************************* 
   *   Methods
   *********************************************************/
+
+  set themeData(ThemeData themeData) {
+    _themeData = themeData;
+    notifyListeners();
+  }
+
+  void toggleTheme() {
+    if (_themeData == lightMode) {
+      themeData = darkMode;
+    } else {
+      themeData = lightMode;
+    }
+  }
 
   /*********************************************************
   *   Build
   *********************************************************/
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: _posts.length,
-        itemBuilder: (context, index) {
-          return MyBoxListComponent(
-            text: _posts[index],
-            onTap: null,
-          );
-        });
-  }
 }

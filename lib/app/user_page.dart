@@ -32,16 +32,17 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Center(
-        child: Text(
-          'Página User!',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
+    return Scaffold(
+      // App Bar
+      appBar: AppBar(
+        title: Text('Usuário'),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        titleTextStyle: TextStyle(
+          color: Theme.of(context).colorScheme.inversePrimary,
+          fontWeight: FontWeight.w900,
+          fontSize: 26,
         ),
       ),
-    ]);
+    );
   }
 }

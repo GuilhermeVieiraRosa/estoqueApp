@@ -4,6 +4,8 @@
 * 
 ***********************************************************************************************************************/
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 /***********************************************************************************************************************
@@ -18,7 +20,7 @@ class MyButtonComponent extends StatelessWidget {
   *********************************************************************************************************************/
 
   final Function()? onTap;
-  String text;
+  final String text;
 
   MyButtonComponent({
     super.key,
@@ -39,17 +41,20 @@ class MyButtonComponent extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.all(20.0),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(5),
-          border: Border(),
+          color: Theme.of(context).colorScheme.inversePrimary,
+          borderRadius: BorderRadius.circular(8),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

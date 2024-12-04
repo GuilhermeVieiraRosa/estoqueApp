@@ -82,49 +82,98 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // App Bar
       appBar: AppBar(
-        title: Text("Controle de Estoque"),
-        backgroundColor: Colors.deepPurple[300],
+        title: Text('App GW'),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         titleTextStyle: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
+          color: Theme.of(context).colorScheme.inversePrimary,
+          fontWeight: FontWeight.w900,
+          fontSize: 26,
         ),
       ),
 
       // Drawer
       drawer: Drawer(
-        backgroundColor: Colors.deepPurple[250],
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 50,
-          ),
-          child: Column(
-            children: [
-              ListTile(
-                title: Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        child: Column(
+          children: [
+            // Logo e Title
+            Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: Center(
+                child: Text(
                   "${user!.email}",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.tertiary,
                     fontSize: 22,
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Usuário'),
-                onTap: () => setIndexToUserPage(),
+            ),
+
+            // Divider
+            Divider(),
+
+            // User Page
+            ListTile(
+              leading: Icon(
+                Icons.person,
+                size: 30,
+                color: Theme.of(context).colorScheme.inversePrimary,
               ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Configurações'),
-                onTap: () => setIndexToConfigPage(),
+              title: Text(
+                'Usuário',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 20,
+                ),
               ),
-              ListTile(
-                leading: Icon(Icons.exit_to_app),
-                title: Text('Sair'),
-                onTap: signUserOut,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const UserPage()));
+              },
+            ),
+
+            // Config Page
+            ListTile(
+              leading: Icon(
+                Icons.settings,
+                size: 30,
+                color: Theme.of(context).colorScheme.inversePrimary,
               ),
-            ],
-          ),
+              title: Text(
+                'Configurações',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ConfigPage()));
+              },
+            ),
+
+            //Logoff
+            ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                size: 30,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+              title: Text(
+                'Sair',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontSize: 20,
+                ),
+              ),
+              onTap: signUserOut,
+            ),
+          ],
         ),
       ),
 
@@ -133,22 +182,28 @@ class _HomePageState extends State<HomePage> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           switch (currentIndex) {
+            case 0:
+              return StoragePage();
             case 1:
               return AddPage();
             case 2:
               return SearchPage();
-            case 4:
-              return UserPage();
-            case 5:
-              return ConfigPage();
             default:
-              return StoragePage();
+              return Center(
+                  child: Column(
+                children: [
+                  Icon(Icons.home),
+                  Text('Bem Vindo!'),
+                ],
+              ));
           }
         },
       ),
 
       // BottomBar
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        selectedItemColor: Theme.of(context).colorScheme.tertiary,
         onTap: (index) => goToPage(index),
         items: [
           BottomNavigationBarItem(

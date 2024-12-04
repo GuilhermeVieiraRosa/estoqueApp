@@ -7,10 +7,12 @@
 // Pacotes
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_aplication/themes/theme_provider.dart';
 // Paginas
 // Componentes
 import 'package:flutter_test_aplication/ui/button_component.dart';
 import 'package:flutter_test_aplication/ui/textfield_component.dart';
+import 'package:provider/provider.dart';
 
 /***********************************************************************************************************************
 * 
@@ -103,43 +105,60 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo
-                SizedBox(
-                  height: 10,
-                ),
-                Icon(
-                  Icons.account_box,
-                  size: 150,
+                // Central Icon and Theme Icon
+                Stack(
+                  children: [
+                    // Central Icon
+                    Center(
+                      child: Icon(
+                        Icons.account_box,
+                        size: 180,
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ),
+                    // Theme Toggle Button
+                    Positioned(
+                      top: 15,
+                      right: 15,
+                      child: GestureDetector(
+                        onTap: () => Provider.of<ThemeProvider>(
+                          context,
+                          listen: false,
+                        ).toggleTheme(),
+                        child: Icon(
+                          Icons.sunny,
+                          size: 40,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 // Text
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 5),
                 Column(
                   children: [
                     Text(
-                      'App Armazem',
+                      'App GW',
                       style: TextStyle(
-                        color: Colors.grey[900],
-                        fontSize: 30,
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        fontSize: 40,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                    ),
+                    const SizedBox(height: 50),
                     Text(
                       'Entrar na conta',
                       style: TextStyle(
-                        color: Colors.grey[900],
+                        color: Theme.of(context).colorScheme.inverseSurface,
                         fontSize: 20,
                       ),
                     ),
@@ -147,58 +166,53 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 // Username Text Field
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 10),
                 MyTextfieldComponent(
                   controller: emailController,
                   hintText: 'Usuário',
-                  obscureText: false,
+                  obscureText: true,
                 ),
 
                 // Password Text Field
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 MyTextfieldComponent(
                   controller: passwordController,
                   hintText: 'Senha',
                   obscureText: true,
                 ),
 
-                // Forgot Password
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Text('Esqueceu a senha?'),
-                    ),
-                  ],
-                ),
-
                 // Login Button
-                SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
                 MyButtonComponent(
                   onTap: signUserIn,
                   text: 'Logar',
                 ),
 
+                // // Forgot Password
+                // const SizedBox(height: 10),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 25),
+                //       child: Text('Esqueceu a senha?'),
+                //     ),
+                //   ],
+                // ),
+
                 // Register Button
-                SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
                 GestureDetector(
                   onTap: widget.onRegisterButtomTap,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Não tem uma conta? '),
+                      Text(
+                        'Não tem uma conta? ',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
+                      ),
                       Text(
                         'Registre-se aqui.',
                         style: TextStyle(
