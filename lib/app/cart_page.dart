@@ -4,12 +4,11 @@
 * 
 ***********************************************************************************************************************/
 
-// Pacotes
+//Pacotes
 import 'package:flutter/material.dart';
-// Paginas
-import 'package:estoque_app/app/login_page.dart';
-import 'package:estoque_app/app/register_page.dart';
-// Componentes
+import 'package:estoque_app/ui/button_component.dart';
+//Paginas
+//Componentes
 
 /***********************************************************************************************************************
 * 
@@ -17,42 +16,47 @@ import 'package:estoque_app/app/register_page.dart';
 * 
 ***********************************************************************************************************************/
 
-class LoginOrRegisterPage extends StatefulWidget {
-  const LoginOrRegisterPage({super.key});
-
-  @override
-  State<LoginOrRegisterPage> createState() => _LoginOrRegisterPageState();
-}
-
-class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
+class CartPage extends StatelessWidget {
   /*********************************************************
   *   Variables
   *********************************************************/
+  final Function()? onTap;
 
-  bool showLoginPage = true;
+  const CartPage({
+    super.key,
+    this.onTap,
+  });
 
   /*********************************************************
   *   Methods
   *********************************************************/
 
-  /**
-  * Choose Page Method
-  */
-  void chooseBetweenLoginOrRegisterPage() {
-    setState(() {
-      showLoginPage = !showLoginPage;
-    });
-  }
-
   /*********************************************************
   *   Build
   *********************************************************/
+
   @override
   Widget build(BuildContext context) {
-    if (showLoginPage) {
-      return LoginPage(onRegisterButtomTap: chooseBetweenLoginOrRegisterPage);
-    } else {
-      return RegisterPage(onLoginButtomTap: chooseBetweenLoginOrRegisterPage);
-    }
+    return Scaffold(
+      // App Bar
+      appBar: AppBar(
+        title: const Text('Carrinho'),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        titleTextStyle: TextStyle(
+          color: Theme.of(context).colorScheme.inversePrimary,
+          fontWeight: FontWeight.w900,
+          fontSize: 26,
+        ),
+      ),
+      body: Column(
+        children: [
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25.0),
+            child: MyButtonComponent(onTap: onTap, text: 'Finalizar Compra'),
+          )
+        ],
+      ),
+    );
   }
 }

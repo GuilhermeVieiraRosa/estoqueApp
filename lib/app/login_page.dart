@@ -7,11 +7,11 @@
 // Pacotes
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_aplication/themes/theme_provider.dart';
+import 'package:estoque_app/themes/theme_provider.dart';
 // Paginas
 // Componentes
-import 'package:flutter_test_aplication/ui/button_component.dart';
-import 'package:flutter_test_aplication/ui/textfield_component.dart';
+import 'package:estoque_app/ui/button_component.dart';
+import 'package:estoque_app/ui/textfield_component.dart';
 import 'package:provider/provider.dart';
 
 /***********************************************************************************************************************
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -84,12 +84,12 @@ class _LoginPageState extends State<LoginPage> {
         return AlertDialog(
           title: Text(
             message,
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
           shape: RoundedRectangleBorder(
             borderRadius:
                 BorderRadius.circular(20), // Arredondamento dos cantos
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.grey, // Cor da borda
               width: 3, // Espessura da borda
             ),
@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Registre-se aqui.',
                         style: TextStyle(
                           color: Colors.blue,

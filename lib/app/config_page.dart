@@ -7,7 +7,7 @@
 //Pacotes
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_aplication/themes/theme_provider.dart';
+import 'package:estoque_app/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 //Paginas
 //Componentes
@@ -38,7 +38,7 @@ class ConfigPage extends StatelessWidget {
     return Scaffold(
       // App Bar
       appBar: AppBar(
-        title: Text('Configurações'),
+        title: const Text('Configurações'),
         backgroundColor: Theme.of(context).colorScheme.secondary,
         titleTextStyle: TextStyle(
           color: Theme.of(context).colorScheme.inversePrimary,

@@ -1,6 +1,6 @@
 {
-    "name": "flutter_test_aplication",
-    "short_name": "flutter_test_aplication",
+    "name": "estoque_app",
+    "short_name": "estoque_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

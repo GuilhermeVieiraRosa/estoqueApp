@@ -6,7 +6,7 @@
 
 //Pacotes
 import 'package:flutter/material.dart';
-import 'package:flutter_test_aplication/ui/boxlist_component.dart';
+import 'package:estoque_app/ui/boxlist_component.dart';
 //Paginas
 //Componentes
 
@@ -45,12 +45,13 @@ class StoragePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: _posts.length,
-        itemBuilder: (context, index) {
-          return MyBoxListComponent(
-            text: _posts[index],
-            onTap: null,
-          );
-        });
+      itemCount: _posts.length,
+      itemBuilder: (context, index) {
+        return MyBoxListComponent(
+          text: _posts[index],
+          onTap: null,
+        );
+      },
+    );
   }
 }

@@ -46,42 +46,41 @@ class DefaultFirebaseOptions {
     messagingSenderId: '339250930789',
     projectId: 'estoqueappauth',
     authDomain: 'estoqueappauth.firebaseapp.com',
-    storageBucket: 'estoqueappauth.appspot.com',
+    storageBucket: 'estoqueappauth.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDgQKWGOdY_lUr0DLHvq15sziwxbNyzKJ8',
-    appId: '1:339250930789:android:ca474cdc98dc354a11d28c',
+    appId: '1:339250930789:android:b3577b78a76dd41511d28c',
     messagingSenderId: '339250930789',
     projectId: 'estoqueappauth',
-    storageBucket: 'estoqueappauth.appspot.com',
+    storageBucket: 'estoqueappauth.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyApihnTNd3ZB7fOMHekZ-NavLhYHNK3TYY',
-    appId: '1:339250930789:ios:68a42064d2f12c2a11d28c',
+    appId: '1:339250930789:ios:8c29f03ec8d3cea111d28c',
     messagingSenderId: '339250930789',
     projectId: 'estoqueappauth',
-    storageBucket: 'estoqueappauth.appspot.com',
-    iosBundleId: 'com.example.flutterTestAplication',
+    storageBucket: 'estoqueappauth.firebasestorage.app',
+    iosBundleId: 'com.example.estoqueApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyApihnTNd3ZB7fOMHekZ-NavLhYHNK3TYY',
-    appId: '1:339250930789:ios:68a42064d2f12c2a11d28c',
+    appId: '1:339250930789:ios:8c29f03ec8d3cea111d28c',
     messagingSenderId: '339250930789',
     projectId: 'estoqueappauth',
-    storageBucket: 'estoqueappauth.appspot.com',
-    iosBundleId: 'com.example.flutterTestAplication',
+    storageBucket: 'estoqueappauth.firebasestorage.app',
+    iosBundleId: 'com.example.estoqueApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyCHcvZRJdYiQquUKVtmMRVT_nfJJQDEve0',
-    appId: '1:339250930789:web:704d006bb3190dc111d28c',
+    appId: '1:339250930789:web:f321b3d1e4584c7d11d28c',
     messagingSenderId: '339250930789',
     projectId: 'estoqueappauth',
     authDomain: 'estoqueappauth.firebaseapp.com',
-    storageBucket: 'estoqueappauth.appspot.com',
+    storageBucket: 'estoqueappauth.firebasestorage.app',
   );
-
 }

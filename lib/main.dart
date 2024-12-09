@@ -7,11 +7,11 @@
 //Pacotes
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_test_aplication/themes/theme_provider.dart';
+import 'package:estoque_app/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 //Paginas
-import 'package:flutter_test_aplication/app/auth_page.dart';
+import 'package:estoque_app/app/auth_page.dart';
 //Componentes
 
 /***********************************************************************************************************************
@@ -26,6 +26,7 @@ Future<void> main() async {
   */
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    name: "estoqueApp",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -34,7 +35,7 @@ Future<void> main() async {
   */
   runApp(ChangeNotifierProvider(
     create: (context) => ThemeProvider(),
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
@@ -46,8 +47,8 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   /*********************************************************
-  *   Variables
-  *********************************************************/
+   *   Variables
+   *********************************************************/
 
   const MyApp({super.key});
 
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
       title: 'Armazem App',
       theme: Provider.of<ThemeProvider>(context).themeData,
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      home: const AuthPage(),
     );
   }
 }

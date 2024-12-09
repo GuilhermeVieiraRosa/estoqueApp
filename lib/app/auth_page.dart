@@ -8,8 +8,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //Paginas
-import 'package:flutter_test_aplication/app/home_page.dart';
-import 'package:flutter_test_aplication/app/login_or_register_page.dart';
+import 'package:estoque_app/app/home_page.dart';
+import 'package:estoque_app/app/login_or_register_page.dart';
 //Componentes
 
 /***********************************************************************************************************************

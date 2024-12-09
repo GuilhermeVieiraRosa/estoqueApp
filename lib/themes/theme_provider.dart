@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 //Paginas
 //Componentes
 //Tema
-import 'package:flutter_test_aplication/themes/light_theme.dart';
-import 'package:flutter_test_aplication/themes/dark_theme.dart';
+import 'package:estoque_app/themes/light_theme.dart';
+import 'package:estoque_app/themes/dark_theme.dart';
 
 /***********************************************************************************************************************
 * 
