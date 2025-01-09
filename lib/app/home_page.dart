@@ -232,27 +232,6 @@ class _HomePageState extends State<HomePage> {
           color: Theme.of(context).colorScheme.inversePrimary,
         ),
       ),
-
-      // // BottomBar
-      // bottomNavigationBar: BottomNavigationBar(
-      //   backgroundColor: Theme.of(context).colorScheme.secondary,
-      //   selectedItemColor: Theme.of(context).colorScheme.tertiary,
-      //   onTap: (index) => goToPage(index),
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.list),
-      //       label: 'Estoque',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.playlist_add_outlined),
-      //       label: 'Adicionar',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.search),
-      //       label: 'Buscar',
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

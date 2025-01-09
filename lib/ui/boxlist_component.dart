@@ -4,6 +4,8 @@
 * 
 ***********************************************************************************************************************/
 
+import 'package:estoque_app/ui/button_buy_component.dart';
+import 'package:estoque_app/ui/qtty_selector_button_component.dart';
 import 'package:flutter/material.dart';
 
 /***********************************************************************************************************************
@@ -70,12 +72,6 @@ class MyBoxListComponent extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
 
-                      // Preço
-                      Text(
-                        'R\$15,00',
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-
                       // Descrição
                       Expanded(
                         // Ajusta o espaço vertical para o texto descritivo
@@ -88,6 +84,35 @@ class MyBoxListComponent extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.w400),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Expanded(
+                flex: 0,
+                child: SizedBox(
+                  width: 60,
+                  child: Column(
+                    children: [
+                      // Preço
+                      Text(
+                        'R\$15,00',
+                        style: TextStyle(fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(height: 12),
+
+                      // Quantidade
+                      MyQttySelectorComponent(
+                        initialQuantity: 1,
+                        onChanged: (quantity) {},
+                      ),
+                      const SizedBox(height: 12),
+
+                      // Botão Comprar
+                      MyBuyButton(
+                        onPressed: () {},
+                      )
                     ],
                   ),
                 ),
