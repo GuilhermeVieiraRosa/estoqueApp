@@ -34,6 +34,7 @@ class _AddPageState extends State<AddPage> {
   *   Variables
   *********************************************************/
 
+  final TextEditingController imagePathController = TextEditingController();
   final TextEditingController idController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -48,7 +49,8 @@ class _AddPageState extends State<AddPage> {
 
   void addNewProduct() {
     // Validação básica
-    if (idController.text.isEmpty ||
+    if (imagePathController.text.isEmpty ||
+        idController.text.isEmpty ||
         nameController.text.isEmpty ||
         descriptionController.text.isEmpty ||
         priceController.text.isEmpty ||
@@ -63,11 +65,11 @@ class _AddPageState extends State<AddPage> {
     }
 
     // Criação do produto
-    Product product = Product(
+    var product = Product(
       productId: idController.text,
       name: nameController.text,
       description: descriptionController.text,
-      imagePath: '', // Atualize com lógica de upload, se necessário
+      imagePath: imagePathController.text,
       price: priceController.text,
       quantity: quantityController.text,
       administratorId: '', // Atualize com o ID do administrador, se necessário
@@ -77,14 +79,14 @@ class _AddPageState extends State<AddPage> {
     firestoreServices.addProduct(product);
 
     // Limpar os campos após salvar
+    imagePathController.clear();
     idController.clear();
     nameController.clear();
     descriptionController.clear();
     priceController.clear();
     quantityController.clear();
 
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => StoragePage()));
+    Navigator.pop(context);
   }
 
   /*********************************************************
@@ -108,24 +110,13 @@ class _AddPageState extends State<AddPage> {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             children: [
-              // IMAGEM (Placeholder)
-              Column(
-                children: [
-                  Text(
-                    'Imagem do produto:',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const Icon(
-                    Icons.image,
-                    size: 100,
-                  ),
-                ],
-              ),
-
               // Campos de entrada
+              MyTextfieldComponentVariant(
+                controller: imagePathController,
+                text: 'URL da Imagem do produto',
+                hintText: 'Endereço da imagem',
+                obscureText: false,
+              ),
               MyTextfieldComponentVariant(
                 controller: idController,
                 text: 'ID do produto',

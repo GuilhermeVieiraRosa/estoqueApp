@@ -37,8 +37,6 @@ class _HomePageState extends State<HomePage> {
 
   final user = FirebaseAuth.instance.currentUser;
 
-  int currentIndex = 0;
-
   /*********************************************************
   *   Methods
   *********************************************************/
@@ -48,15 +46,6 @@ class _HomePageState extends State<HomePage> {
   */
   Future<void> signUserOut() async {
     FirebaseAuth.instance.signOut();
-  }
-
-  /**
-  * goToPage Method
-  */
-  void goToPage(index) {
-    setState(() {
-      currentIndex = index;
-    });
   }
 
   /*********************************************************
@@ -202,25 +191,11 @@ class _HomePageState extends State<HomePage> {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          switch (currentIndex) {
-            case 0:
-              return StoragePage();
-            case 1:
-              return AddPage();
-            case 2:
-              return const SearchPage();
-            default:
-              return const Center(
-                  child: Column(
-                children: [
-                  Icon(Icons.home),
-                  Text('Bem Vindo!'),
-                ],
-              ));
-          }
+          return StoragePage();
         },
       ),
 
+      // Botão Suspenso
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

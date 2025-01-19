@@ -4,6 +4,7 @@
 * 
 ***********************************************************************************************************************/
 
+import 'package:estoque_app/models/product_model.dart';
 import 'package:estoque_app/ui/button_buy_component.dart';
 import 'package:estoque_app/ui/qtty_selector_button_component.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +19,12 @@ class MyBoxListComponent extends StatelessWidget {
   /*********************************************************************************************************************
   *   Variables
   *********************************************************************************************************************/
-  final String text;
+  final Product product;
   final Function()? onTap;
 
   const MyBoxListComponent({
     super.key,
-    required this.text,
+    required this.product,
     required this.onTap,
   });
 
@@ -54,8 +55,7 @@ class MyBoxListComponent extends StatelessWidget {
                   width: 140,
                   height: 140,
                   fit: BoxFit.cover,
-                  image: NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxoTUcfO6YNrYPu3p59hPsniPYf28NmbeI1A&s'),
+                  image: NetworkImage(product.imagePath),
                 ),
               ),
 
@@ -68,7 +68,7 @@ class MyBoxListComponent extends StatelessWidget {
                     children: [
                       // Nome
                       Text(
-                        'Barra de chocolate Lacta',
+                        product.name,
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
 
@@ -76,7 +76,7 @@ class MyBoxListComponent extends StatelessWidget {
                       Expanded(
                         // Ajusta o espaço vertical para o texto descritivo
                         child: Text(
-                          'A perfeita combinação de cacau e leite traz o sabor único para a barra Lacta. Com um formato totalmente exclusivo e a cremosidade certa para que o chocolate derreta lentamente na boca, ele acaba oferecendo uma experiência saborosa e marcante, fazendo com que cada momento delicioso dure mais.',
+                          product.description,
                           softWrap: true,
                           maxLines: 4, // Limita a altura do texto
                           overflow: TextOverflow
@@ -97,7 +97,7 @@ class MyBoxListComponent extends StatelessWidget {
                     children: [
                       // Preço
                       Text(
-                        'R\$15,00',
+                        "R\$ ${product.price}",
                         style: TextStyle(fontWeight: FontWeight.w400),
                       ),
                       const SizedBox(height: 12),
