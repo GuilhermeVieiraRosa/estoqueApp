@@ -23,8 +23,32 @@ import 'package:estoque_app/services/firestore.dart';
 ***********************************************************************************************************************/
 
 class AddPage extends StatefulWidget {
-  AddPage({super.key});
+  /*********************************************************
+  *   Variables
+  *********************************************************/
 
+  final Product product;
+  final bool isNew;
+
+  AddPage({
+    super.key,
+    required this.isNew,
+    Product? product, // Opcional, pode ser passado ou não
+  }) : product = product ??
+            Product(
+              // Inicializa com um valor padrão se necessário
+              productId: '',
+              name: '',
+              description: '',
+              imagePath: '',
+              price: '',
+              quantity: '',
+              administratorId: '',
+            );
+
+  /*********************************************************
+  *   State
+  *********************************************************/
   @override
   State<AddPage> createState() => _AddPageState();
 }
@@ -52,7 +76,6 @@ class _AddPageState extends State<AddPage> {
     if (imagePathController.text.isEmpty ||
         idController.text.isEmpty ||
         nameController.text.isEmpty ||
-        descriptionController.text.isEmpty ||
         priceController.text.isEmpty ||
         quantityController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -95,6 +118,15 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Verifica se está adicionando ou atualizando um produto
+    if (!widget.isNew) {
+      idController.text = widget.product.productId;
+      nameController.text = widget.product.name;
+      descriptionController.text = widget.product.description;
+      imagePathController.text = widget.product.imagePath;
+      priceController.text = widget.product.price;
+      quantityController.text = widget.product.quantity;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Produto'),
@@ -132,7 +164,7 @@ class _AddPageState extends State<AddPage> {
               MyTextfieldComponentVariant(
                 controller: descriptionController,
                 text: 'Descrição do produto',
-                hintText: 'Descrição',
+                hintText: 'Descrição (Opcional)',
                 obscureText: false,
               ),
               Row(

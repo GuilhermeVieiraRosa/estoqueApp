@@ -6,7 +6,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:estoque_app/models/product_model.dart';
-import 'package:flutter/material.dart';
 
 /***********************************************************************************************************************
 * 
@@ -28,7 +27,7 @@ class FirestoreServices {
 
   // Criar produto
   Future<void> addProduct(Product product) {
-    return tableProduct.add({
+    return tableProduct.doc(product.productId).set({
       'productId': product.productId,
       'name': product.name,
       'description': product.description,
@@ -42,7 +41,7 @@ class FirestoreServices {
   // Ver produto
   Stream<QuerySnapshot> getProductStream() {
     final productStream =
-        tableProduct.orderBy('productId', descending: true).snapshots();
+        tableProduct.orderBy('name', descending: false).snapshots();
 
     return productStream;
   }

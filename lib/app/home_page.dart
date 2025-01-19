@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:estoque_app/app/add_page.dart';
 import 'package:estoque_app/app/cart_page.dart';
 import 'package:estoque_app/app/config_page.dart';
-import 'package:estoque_app/app/search_page.dart';
 import 'package:estoque_app/app/statistics_page.dart';
 import 'package:estoque_app/app/storage_page.dart';
 import 'package:estoque_app/app/user_page.dart';
@@ -198,8 +197,8 @@ class _HomePageState extends State<HomePage> {
       // Botão Suspenso
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddPage(isNew: true)));
         },
         tooltip: 'Ir para AddPage',
         child: Icon(

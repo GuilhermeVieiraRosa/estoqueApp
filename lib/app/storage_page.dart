@@ -6,6 +6,7 @@
 
 //Pacotes
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:estoque_app/app/add_page.dart';
 import 'package:estoque_app/models/product_model.dart';
 import 'package:estoque_app/services/firestore.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +24,6 @@ class StoragePage extends StatelessWidget {
   /*********************************************************
   *   Variables
   *********************************************************/
-
-  var product = Product(
-      productId: 'productId',
-      name: 'name',
-      description: 'description',
-      imagePath:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxoTUcfO6YNrYPu3p59hPsniPYf28NmbeI1A&s',
-      price: 'price',
-      quantity: 'quantity',
-      administratorId: 'administratorId');
 
   StoragePage({super.key});
 
@@ -77,7 +68,98 @@ class StoragePage extends StatelessWidget {
               // Mostra dado individualmente
               return MyBoxListComponent(
                 product: product,
-                onTap: null,
+                onLongPress: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    barrierColor: Colors.black54,
+                    builder: (BuildContext context) {
+                      return Center(
+                        child: Container(
+                          width: 300,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 10,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Mostra ID
+                              Text('Id do Produto: ${product.productId}',
+                                  style: TextStyle(fontSize: 18)),
+                              const SizedBox(height: 12),
+
+                              // Opção Editar
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  print('Editar ${product.name} selecionado');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddPage(
+                                                isNew: false,
+                                                product: product,
+                                              )));
+                                },
+                                icon: Icon(Icons.edit, color: Colors.white),
+                                label: Text(
+                                  'Editar ${product.name}',
+                                  style: TextStyle(fontSize: 16),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blueAccent,
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  minimumSize: Size(double.infinity, 50),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+
+                              // Opção Apagar
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  print('Apagar ${product.name} selecionado');
+                                  firestoreServices.deleteProduct(product);
+                                },
+                                icon: Icon(Icons.delete, color: Colors.white),
+                                label: Text(
+                                  'Apagar ${product.name}',
+                                  style: TextStyle(fontSize: 16),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.redAccent,
+                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  minimumSize: Size(double.infinity, 50),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               );
             },
           );

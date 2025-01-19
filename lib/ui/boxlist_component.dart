@@ -20,12 +20,12 @@ class MyBoxListComponent extends StatelessWidget {
   *   Variables
   *********************************************************************************************************************/
   final Product product;
-  final Function()? onTap;
+  final VoidCallback onLongPress;
 
   const MyBoxListComponent({
     super.key,
     required this.product,
-    required this.onTap,
+    required this.onLongPress,
   });
 
   /*********************************************************************************************************************
@@ -39,7 +39,7 @@ class MyBoxListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onLongPress: onLongPress,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 3.0),
         child: Container(
