@@ -8,7 +8,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:estoque_app/app/add_page.dart';
 import 'package:estoque_app/models/product_model.dart';
-import 'package:estoque_app/services/firestore.dart';
+import 'package:estoque_app/services/business_model.dart';
 import 'package:flutter/material.dart';
 import 'package:estoque_app/ui/boxlist_component.dart';
 //Paginas

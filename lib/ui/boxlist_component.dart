@@ -5,6 +5,7 @@
 ***********************************************************************************************************************/
 
 import 'package:estoque_app/models/product_model.dart';
+import 'package:estoque_app/services/business_model.dart';
 import 'package:estoque_app/ui/button_buy_component.dart';
 import 'package:estoque_app/ui/qtty_selector_button_component.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +23,13 @@ class MyBoxListComponent extends StatelessWidget {
   final Product product;
   final VoidCallback onLongPress;
 
-  const MyBoxListComponent({
+  MyBoxListComponent({
     super.key,
     required this.product,
     required this.onLongPress,
   });
+
+  final FirestoreServices firestoreServices = FirestoreServices();
 
   /*********************************************************************************************************************
   *   Methods
@@ -79,8 +82,7 @@ class MyBoxListComponent extends StatelessWidget {
                           product.description,
                           softWrap: true,
                           maxLines: 4, // Limita a altura do texto
-                          overflow: TextOverflow
-                              .ellipsis, // Substitui `visible` por `ellipsis` para evitar overflow
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -111,7 +113,9 @@ class MyBoxListComponent extends StatelessWidget {
 
                       // Botão Comprar
                       MyBuyButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //firestoreServices.addCart(product, user, quantity);
+                        },
                       )
                     ],
                   ),

@@ -8,6 +8,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:estoque_app/themes/theme_provider.dart';
+import 'package:estoque_app/services/business_model.dart';
 // Paginas
 // Componentes
 import 'package:estoque_app/ui/button_component.dart';
@@ -40,6 +41,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  final FirestoreServices firestoreServices = FirestoreServices();
 
   /*********************************************************
   *   Methods
@@ -74,6 +77,9 @@ class _RegisterPageState extends State<RegisterPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+
+      // Register in database
+      firestoreServices.newUser(emailController.text);
 
       // Remove loading circle
       Navigator.pop(context);

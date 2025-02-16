@@ -4,14 +4,16 @@
 * 
 ***********************************************************************************************************************/
 
-class User {
+class Cart {
+  final String cartId;
+  final String productId;
   final String userId;
-  final String name;
-  final String email;
+  final String quantity;
 
-  User({
+  Cart({
+    required this.cartId,
+    required this.productId,
     required this.userId,
-    this.name = '',
-    required this.email,
+    required this.quantity,
   });
 }

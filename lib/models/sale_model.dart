@@ -5,9 +5,9 @@
 ***********************************************************************************************************************/
 
 class Sale {
-  final double saleId;
+  final String saleId;
   final DateTime date;
-  final double userId;
+  final String userId;
 
   Sale({
     required this.saleId,

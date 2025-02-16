@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 //Modelos
 import 'package:estoque_app/models/product_model.dart';
 //Metodos
-import 'package:estoque_app/services/firestore.dart';
+import 'package:estoque_app/services/business_model.dart';
 
 /***********************************************************************************************************************
 * 
