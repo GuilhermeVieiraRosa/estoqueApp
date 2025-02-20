@@ -22,4 +22,17 @@ class Product {
     required this.quantity,
     required this.administratorId,
   });
+
+  // Converte um Map<String, dynamic> para um objeto Product
+  factory Product.fromMap(Map<String, dynamic> data) {
+    return Product(
+      productId: data['productId'] ?? '',
+      name: data['name'] ?? '',
+      description: data['description'] ?? '',
+      imagePath: data['imagePath'] ?? '',
+      price: data['price'] ?? '',
+      quantity: data['quantity'] ?? '',
+      administratorId: data['administratorId'] ?? '',
+    );
+  }
 }

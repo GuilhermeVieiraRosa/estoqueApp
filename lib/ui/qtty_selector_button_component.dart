@@ -25,7 +25,7 @@ class MyQttySelectorComponent extends StatefulWidget {
   const MyQttySelectorComponent({
     super.key,
     this.initialQuantity = 1,
-    this.minQuantity = 1,
+    this.minQuantity = 0,
     this.maxQuantity = 99,
     required this.onChanged,
   });

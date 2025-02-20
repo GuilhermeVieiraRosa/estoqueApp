@@ -5,14 +5,16 @@
 ***********************************************************************************************************************/
 
 //Pacotes
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:estoque_app/app/add_page.dart';
-import 'package:estoque_app/models/product_model.dart';
-import 'package:estoque_app/services/business_model.dart';
 import 'package:flutter/material.dart';
-import 'package:estoque_app/ui/boxlist_component.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 //Paginas
+import 'package:estoque_app/app/add_page.dart';
 //Componentes
+import 'package:estoque_app/ui/boxlist_component.dart';
+//Models
+import 'package:estoque_app/models/product_model.dart';
+import 'package:estoque_app/models/user_model.dart';
+import 'package:estoque_app/services/business_model.dart';
 
 /***********************************************************************************************************************
 * 
@@ -24,8 +26,12 @@ class StoragePage extends StatelessWidget {
   /*********************************************************
   *   Variables
   *********************************************************/
+  UserData user;
 
-  StoragePage({super.key});
+  StoragePage({
+    super.key,
+    UserData? user,
+  }) : user = user ?? UserData(userId: '', name: '', email: '', isAdmin: false);
 
   final FirestoreServices firestoreServices = FirestoreServices();
 
@@ -160,6 +166,7 @@ class StoragePage extends StatelessWidget {
                     },
                   );
                 },
+                user: user,
               );
             },
           );

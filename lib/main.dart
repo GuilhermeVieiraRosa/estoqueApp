@@ -5,6 +5,7 @@
 ***********************************************************************************************************************/
 
 //Pacotes
+import 'package:estoque_app/services/business_model.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:estoque_app/themes/theme_provider.dart';
@@ -33,10 +34,15 @@ Future<void> main() async {
   /**
   * RunApp
   */
-  runApp(ChangeNotifierProvider(
-    create: (context) => ThemeProvider(),
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider())
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 /***********************************************************************************************************************

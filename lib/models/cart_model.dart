@@ -8,7 +8,7 @@ class Cart {
   final String cartId;
   final String productId;
   final String userId;
-  final String quantity;
+  String quantity;
 
   Cart({
     required this.cartId,

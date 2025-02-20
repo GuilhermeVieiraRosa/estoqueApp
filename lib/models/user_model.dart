@@ -4,14 +4,26 @@
 * 
 ***********************************************************************************************************************/
 
-class User {
+class UserData {
   final String userId;
   final String name;
   final String email;
+  final bool isAdmin;
 
-  User({
-    required this.userId,
+  UserData({
+    this.userId = '',
     this.name = '',
-    required this.email,
+    this.email = '',
+    this.isAdmin = false,
   });
+
+  // Converte um Map<String, dynamic> para um objeto User
+  factory UserData.fromMap(Map<String, dynamic> data) {
+    return UserData(
+      userId: data['userId'] ?? '',
+      name: data['name'] ?? '',
+      email: data['email'] ?? '',
+      isAdmin: data['isAdmin'] == 'true',
+    );
+  }
 }

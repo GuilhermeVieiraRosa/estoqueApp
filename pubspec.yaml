@@ -1,22 +1,23 @@
 name: estoque_app
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 0.0.1+1
 
 environment:
-  sdk: '>=2.19.4 <4.0.0'
+  sdk: ">=2.19.4 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  english_words: ^4.0.0
   provider: ^6.1.2
   firebase_core: ^3.8.1
   firebase_auth: ^5.3.1
   cloud_firestore: ^5.5.1
+  fl_chart: ^0.63.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

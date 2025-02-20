@@ -1,11 +1,3 @@
-/***********************************************************************************************************************
-* 
-*                                                  Import
-* 
-***********************************************************************************************************************/
-
-//Pacotes
-import 'package:estoque_app/app/storage_page.dart';
 import 'package:estoque_app/ui/button_component.dart';
 import 'package:estoque_app/ui/textfield_component.dart';
 import 'package:flutter/material.dart';
