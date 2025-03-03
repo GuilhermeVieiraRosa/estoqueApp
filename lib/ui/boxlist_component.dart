@@ -5,6 +5,7 @@
 ***********************************************************************************************************************/
 
 import 'package:estoque_app/models/product_model.dart';
+import 'package:estoque_app/models/user_model.dart';
 import 'package:estoque_app/services/business_model.dart';
 import 'package:estoque_app/ui/button_buy_component.dart';
 import 'package:estoque_app/ui/qtty_selector_button_component.dart';
@@ -22,12 +23,15 @@ class MyBoxListComponent extends StatelessWidget {
   *********************************************************************************************************************/
   final Product product;
   final VoidCallback onLongPress;
+  var quantity = 1;
+  UserData user;
 
   MyBoxListComponent({
     super.key,
     required this.product,
     required this.onLongPress,
-  });
+    UserData? user,
+  }) : user = user ?? UserData(userId: '', name: '', email: '', isAdmin: false);
 
   final FirestoreServices firestoreServices = FirestoreServices();
 
@@ -70,9 +74,19 @@ class MyBoxListComponent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Nome
-                      Text(
-                        product.name,
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                      Row(
+                        children: [
+                          Text(
+                            product.name,
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            product.quantity,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w300, fontSize: 12.0),
+                          ),
+                        ],
                       ),
 
                       // Descrição
@@ -107,14 +121,17 @@ class MyBoxListComponent extends StatelessWidget {
                       // Quantidade
                       MyQttySelectorComponent(
                         initialQuantity: 1,
-                        onChanged: (quantity) {},
+                        onChanged: (newQuantity) {
+                          quantity = newQuantity;
+                        },
                       ),
                       const SizedBox(height: 12),
 
                       // Botão Comprar
                       MyBuyButton(
                         onPressed: () {
-                          //firestoreServices.addCart(product, user, quantity);
+                          firestoreServices.addCart(firestoreServices
+                              .createCart(product, user, quantity.toString()));
                         },
                       )
                     ],

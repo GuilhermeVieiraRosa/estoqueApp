@@ -5,6 +5,7 @@
 ***********************************************************************************************************************/
 
 //Pacotes
+import 'package:estoque_app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:estoque_app/app/add_page.dart';
@@ -15,7 +16,8 @@ import 'package:estoque_app/app/storage_page.dart';
 import 'package:estoque_app/app/user_page.dart';
 //Paginas
 //Componentes
-
+// Methods
+import 'package:estoque_app/services/business_model.dart';
 /***********************************************************************************************************************
 * 
 *                                                  Public
@@ -34,7 +36,9 @@ class _HomePageState extends State<HomePage> {
   *   Variables
   *********************************************************/
 
-  final user = FirebaseAuth.instance.currentUser;
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final FirestoreServices firestoreServices = FirestoreServices();
+  UserData user = UserData();
 
   /*********************************************************
   *   Methods
@@ -50,6 +54,22 @@ class _HomePageState extends State<HomePage> {
   /*********************************************************
   *   Build
   *********************************************************/
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData(); // Chama a função ao iniciar
+  }
+
+  void fetchUserData() async {
+    if (currentUser != null) {
+      UserData? userDataNullable =
+          await firestoreServices.getUser(currentUser!.email);
+      if (userDataNullable != null) {
+        user = userDataNullable;
+      }
+      setState(() {}); // Atualiza a tela quando os dados são carregados
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CartPage()),
+                MaterialPageRoute(builder: (context) => CartPage(user: user)),
               );
             },
           ),
@@ -87,10 +107,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 50),
               child: Center(
                 child: Text(
-                  "${user!.email}",
+                  user.email,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.tertiary,
-                    fontSize: 22,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -115,8 +135,10 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const UserPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserPage(user: user)));
               },
             ),
 
@@ -139,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StatisticsPage()));
+                        builder: (context) => StatisticsPage(user: user)));
               },
             ),
 
@@ -190,22 +212,26 @@ class _HomePageState extends State<HomePage> {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          return StoragePage();
+          return StoragePage(user: user);
         },
       ),
 
       // Botão Suspenso
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddPage(isNew: true)));
-        },
-        tooltip: 'Ir para AddPage',
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.inversePrimary,
-        ),
-      ),
+      floatingActionButton: user.isAdmin
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddPage(isNew: true)));
+              },
+              tooltip: 'Ir para AddPage',
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            )
+          : null,
     );
   }
 }

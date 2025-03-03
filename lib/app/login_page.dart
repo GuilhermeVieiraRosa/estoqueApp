@@ -49,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
   */
   Future<void> signUserIn() async {
     // Show loading circle
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (context) {
@@ -64,10 +65,10 @@ class _LoginPageState extends State<LoginPage> {
           email: emailController.text, password: passwordController.text);
 
       // Remove loading circle
-      Navigator.pop(context);
+      if (mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       // Remove loading circle
-      Navigator.pop(context);
+      if (mounted) Navigator.pop(context);
 
       // Show Error Message
       showErrorMessage(e.code);

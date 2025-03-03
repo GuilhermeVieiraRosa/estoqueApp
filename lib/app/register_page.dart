@@ -39,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
   *********************************************************/
 
   final emailController = TextEditingController();
+  final nameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -79,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
       );
 
       // Register in database
-      firestoreServices.newUser(emailController.text);
+      firestoreServices.newUser(emailController.text, nameController.text);
 
       // Remove loading circle
       Navigator.pop(context);
@@ -183,12 +184,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
 
-                // Username Text Field
+                // Email Text Field
                 const SizedBox(height: 10),
                 MyTextfieldComponent(
                   controller: emailController,
-                  hintText: 'Usuário',
-                  obscureText: true,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
+
+                // Name Text Field
+                const SizedBox(height: 10),
+                MyTextfieldComponent(
+                  controller: nameController,
+                  hintText: 'Nome de Usuário',
+                  obscureText: false,
                 ),
 
                 // Password Text Field
