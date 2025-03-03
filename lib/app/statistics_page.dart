@@ -2,17 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:estoque_app/models/delivery_model.dart';
 import 'package:estoque_app/models/product_model.dart';
 import 'package:estoque_app/models/sale_model.dart';
+import 'package:estoque_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:estoque_app/services/business_model.dart';
 import 'package:estoque_app/ui/dropdown_selector_component.dart';
 
 class StatisticsPage extends StatefulWidget {
   final Function()? onTap;
+  UserData user;
 
-  const StatisticsPage({
+  StatisticsPage({
     super.key,
     this.onTap,
-  });
+    UserData? user,
+  }) : user = user ?? UserData(userId: '', name: '', email: '', isAdmin: true);
 
   @override
   State<StatisticsPage> createState() => _StatisticsPageState();
@@ -26,6 +29,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
   String productId = '';
   String userId = '';
   List<double> total = [];
+
+  bool _isLoading = true;
 
   final List<String> _options = [
     'Nenhum',
@@ -67,6 +72,23 @@ class _StatisticsPageState extends State<StatisticsPage> {
   @override
   void initState() {
     super.initState();
+    _initialize();
+  }
+
+  // Função assíncrona chamada dentro do initState
+  Future<void> _initialize() async {
+    if (!widget.user.isAdmin) {
+      await setUserSelected(); // Aguarda a resolução da função
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  // Seta relatório como Usuário e userName
+  Future<void> setUserSelected() async {
+    _selectedOption = 'Usuários';
+    userId = await firestoreServices.getUserIdByName(widget.user.name) ?? '';
   }
 
   Future<void> _onProductSelected(String selected) async {
@@ -176,10 +198,12 @@ class _StatisticsPageState extends State<StatisticsPage> {
         return Column(
           children: [
             const SizedBox(height: 12),
-            MyDropdownSelectorComponent(
-              queryStream: firestoreServices.getUserStreamByName(),
-              onReportSelected: _onUserSelected,
-            ),
+            widget.user.isAdmin
+                ? MyDropdownSelectorComponent(
+                    queryStream: firestoreServices.getUserStreamByName(),
+                    onReportSelected: _onUserSelected,
+                  )
+                : Container(),
             const SizedBox(height: 12),
             const Center(child: Text('Tela de Usuários')),
 
@@ -441,45 +465,52 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Relatórios'),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        titleTextStyle: TextStyle(
-          color: Theme.of(context).colorScheme.inversePrimary,
-          fontWeight: FontWeight.w900,
-          fontSize: 26,
+        appBar: AppBar(
+          title: const Text('Relatórios'),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          titleTextStyle: TextStyle(
+            color: Theme.of(context).colorScheme.inversePrimary,
+            fontWeight: FontWeight.w900,
+            fontSize: 26,
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton<String>(
-              isExpanded: true,
-              value: _selectedOption,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedOption = newValue!;
-                });
-              },
-              items: _options.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-          Expanded(
-            child: _getSelectedWidget(),
-          ),
-        ],
-      ),
-    );
+        body: widget.user.isAdmin
+            ? Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      value: _selectedOption,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedOption = newValue!;
+                        });
+                      },
+                      items: _options
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Expanded(
+                    child: _getSelectedWidget(),
+                  ),
+                ],
+              )
+            : _getSelectedWidget());
   }
 }

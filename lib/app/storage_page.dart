@@ -75,96 +75,107 @@ class StoragePage extends StatelessWidget {
               return MyBoxListComponent(
                 product: product,
                 onLongPress: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    barrierColor: Colors.black54,
-                    builder: (BuildContext context) {
-                      return Center(
-                        child: Container(
-                          width: 300,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 10,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Mostra ID
-                              Text('Id do Produto: ${product.productId}',
-                                  style: TextStyle(fontSize: 18)),
-                              const SizedBox(height: 12),
+                  user.isAdmin
+                      ? showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          barrierColor: Colors.black54,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: Container(
+                                width: 300,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Mostra ID
+                                    Text('Id do Produto: ${product.productId}',
+                                        style: TextStyle(fontSize: 18)),
+                                    const SizedBox(height: 12),
 
-                              // Opção Editar
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  print('Editar ${product.name} selecionado');
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AddPage(
-                                                isNew: false,
-                                                product: product,
-                                              )));
-                                },
-                                icon: Icon(Icons.edit, color: Colors.white),
-                                label: Text(
-                                  'Editar ${product.name}',
-                                  style: TextStyle(fontSize: 16),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blueAccent,
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  minimumSize: Size(double.infinity, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12),
+                                    // Opção Editar
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        print(
+                                            'Editar ${product.name} selecionado');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => AddPage(
+                                                      isNew: false,
+                                                      product: product,
+                                                    )));
+                                      },
+                                      icon:
+                                          Icon(Icons.edit, color: Colors.white),
+                                      label: Text(
+                                        'Editar ${product.name}',
+                                        style: TextStyle(fontSize: 16),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blueAccent,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        minimumSize: Size(double.infinity, 50),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
 
-                              // Opção Apagar
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  print('Apagar ${product.name} selecionado');
-                                  firestoreServices.deleteProduct(product);
-                                },
-                                icon: Icon(Icons.delete, color: Colors.white),
-                                label: Text(
-                                  'Apagar ${product.name}',
-                                  style: TextStyle(fontSize: 16),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.redAccent,
-                                  padding: EdgeInsets.symmetric(vertical: 12),
-                                  minimumSize: Size(double.infinity, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
+                                    // Opção Apagar
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        print(
+                                            'Apagar ${product.name} selecionado');
+                                        firestoreServices
+                                            .deleteProduct(product);
+                                      },
+                                      icon: Icon(Icons.delete,
+                                          color: Colors.white),
+                                      label: Text(
+                                        'Apagar ${product.name}',
+                                        style: TextStyle(fontSize: 16),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.redAccent,
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 12),
+                                        minimumSize: Size(double.infinity, 50),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                            );
+                          },
+                        )
+                      : null;
                 },
                 user: user,
               );

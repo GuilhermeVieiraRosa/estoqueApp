@@ -135,8 +135,10 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const UserPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserPage(user: user)));
               },
             ),
 
@@ -156,8 +158,10 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StatisticsPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StatisticsPage(user: user)));
               },
             ),
 
@@ -213,17 +217,21 @@ class _HomePageState extends State<HomePage> {
       ),
 
       // Botão Suspenso
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddPage(isNew: true)));
-        },
-        tooltip: 'Ir para AddPage',
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.inversePrimary,
-        ),
-      ),
+      floatingActionButton: user.isAdmin
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddPage(isNew: true)));
+              },
+              tooltip: 'Ir para AddPage',
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            )
+          : null,
     );
   }
 }

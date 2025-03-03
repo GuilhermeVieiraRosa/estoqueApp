@@ -23,7 +23,8 @@ class UserData {
       userId: data['userId'] ?? '',
       name: data['name'] ?? '',
       email: data['email'] ?? '',
-      isAdmin: data['isAdmin'] == 'true',
+      isAdmin:
+          data['isAdmin'] is bool ? data['isAdmin'] : data['isAdmin'] == 'true',
     );
   }
 }
